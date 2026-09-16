@@ -3,17 +3,16 @@
 import { useState, useTransition, type FormEvent } from "react";
 import { submitMessage } from "@/lib/actions/messages";
 import PhotoUpload from "@/app/components/PhotoUpload";
+import { useParams } from "next/navigation";
 
 interface MessageFormProps {
   cardId: string;
   recipientName: string;
-  passcode: string;
 }
 
 export default function MessageForm({
   cardId,
   recipientName,
-  passcode,
 }: MessageFormProps) {
   const [authorName, setAuthorName] = useState("");
   const [messageText, setMessageText] = useState("");
@@ -21,8 +20,10 @@ export default function MessageForm({
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [pending, startTransition] = useTransition();
+  const params = useParams<{ id: string }>();
 
   function handleSubmit(e: FormEvent) {
+    const passcode = params.id; // "9WQUPU"
     e.preventDefault();
     setError(null);
     startTransition(async () => {
