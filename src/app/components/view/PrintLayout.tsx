@@ -103,7 +103,7 @@ export default function PrintLayout({
                       key={url}
                       src={url}
                       alt={`Photo from ${m.authorName}`}
-                      className="h-28 w-28 rounded-lg border border-[#8B6F3E]/30 object-cover"
+                      className="h-50 w-50 rounded-lg border border-[#8B6F3E]/30 object-cover"
                     />
                   ))}
                 </div>

@@ -41,13 +41,14 @@ export default function ViewMessageModal({
         {message.images.length > 0 && (
           <div className="mt-5 flex flex-wrap gap-3">
             {message.images.map((url) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={url}
-                src={url}
-                alt={`Photo from ${message.authorName}`}
-                className="h-28 w-28 rounded-lg object-cover"
-              />
+              <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={url}
+                  alt={`Photo from ${message.authorName}`}
+                  className="h-auto w-auto cursor-pointer rounded-lg object-cover transition-opacity hover:opacity-90"
+                />
+              </a>
             ))}
           </div>
         )}
