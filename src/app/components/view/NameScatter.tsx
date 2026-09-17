@@ -15,6 +15,10 @@ interface NameScatterProps {
   messages: ViewMessage[];
 }
 
+function truncateName(name: string, max = 30): string {
+  return name.length > max ? `${name.slice(0, max).trimEnd()}…` : name;
+}
+
 export default function NameScatter({ messages }: NameScatterProps) {
   const [selected, setSelected] = useState<ViewMessage | null>(null);
 
@@ -31,9 +35,10 @@ export default function NameScatter({ messages }: NameScatterProps) {
             type="button"
             onClick={() => setSelected(m)}
             style={styleForName(m.id)}
+            title={m.authorName}
             className="text-2xl transition-transform duration-200 cursor-pointer hover:scale-110 sm:text-3xl"
           >
-            {m.authorName}
+            {truncateName(m.authorName)}
           </button>
         ))}
       </div>
