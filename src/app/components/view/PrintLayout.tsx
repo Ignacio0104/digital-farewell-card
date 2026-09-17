@@ -37,14 +37,14 @@ export default function PrintLayout({
     <div className="hidden print:block">
       {/* Page 1: names — unchanged, still the castle background */}
       <section
-        className="print-page flex min-h-screen flex-col items-center justify-center px-8 text-center"
+        className="print-page relative flex min-h-screen flex-col items-center justify-center px-8 text-center"
         style={CASTLE_BG_STYLE}
       >
         <img
           src="/assets/sello-no-bg.png"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none fixed z-30 transition-all duration-700 ease-in-out "
+          className="pointer-events-none absolute z-30"
           style={{
             top: "24px",
             right: "24px",
