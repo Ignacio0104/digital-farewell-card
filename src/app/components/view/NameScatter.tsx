@@ -24,14 +24,14 @@ export default function NameScatter({ messages }: NameScatterProps) {
 
   return (
     <>
-      <div className="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-4 px-6 py-10">
+      <div className="mt-6 bg-[url('/assets/paper-background.jpg')] rounded-xl bg-cover bg-center mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-4 px-6 py-10">
         {messages.map((m) => (
           <button
             key={m.id}
             type="button"
             onClick={() => setSelected(m)}
             style={styleForName(m.id)}
-            className="text-2xl transition-transform duration-200 hover:scale-110 sm:text-3xl"
+            className="text-2xl transition-transform duration-200 cursor-pointer hover:scale-110 sm:text-3xl"
           >
             {m.authorName}
           </button>

@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { headlineFont } from "./fonts";
+import {
+  cinzel,
+  headlineFont,
+  kalam,
+  monimerSerif,
+  pacifico,
+  shadowsIntoLight,
+} from "./fonts";
 import NameScatter, { type ViewMessage } from "./NameScatter";
 import PrintLayout from "./PrintLayout";
 
@@ -38,6 +45,7 @@ export default function LetterView({
   return (
     <>
       <main className="relative min-h-screen overflow-hidden bg-[url('/assets/cinderella-castle-3840x2160-9839.jpg')] bg-cover bg-center print:hidden">
+        <WaxSeal stage={stage} />
         <button
           type="button"
           onClick={() => window.print()}
@@ -87,9 +95,42 @@ function Envelope({ stage, onOpen }: { stage: Stage; onOpen: () => void }) {
         {/* Envelope body */}
         <div className="relative cursor-pointer flex h-full w-full flex-col items-center justify-end overflow-hidden rounded-lg border border-[#F6E27A]/40 bg-gradient-to-b from-[#2A1F63] to-[#1B1440] px-10 pb-10 text-center shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
           <p
-            className={`${headlineFont.className} text-3xl leading-snug text-[#F6E27A] sm:text-4xl`}
+            className={`${cinzel.className} text-3xl leading-snug text-[#F6E27A] sm:text-xl`}
           >
-            Thanks for making this project MAGIC
+            Thanks for making this project
+            <span className="relative inline-block pt-8">
+              <span
+                className={`${headlineFont.className} magic-glow-text block text-3xl`}
+              >
+                MAGIC
+              </span>
+
+              {/* Scattered sparkles, staggered so they twinkle out of sync */}
+              <span
+                className="magic-sparkle left-[-18px] top-[-6px] text-lg"
+                style={{ animationDelay: "0s" }}
+              >
+                ✨
+              </span>
+              <span
+                className="magic-sparkle right-[-20px] top-[2px] text-sm"
+                style={{ animationDelay: "0.4s" }}
+              >
+                ✦
+              </span>
+              <span
+                className="magic-sparkle left-[10%] bottom-[-14px] text-base"
+                style={{ animationDelay: "0.9s" }}
+              >
+                ✦
+              </span>
+              <span
+                className="magic-sparkle right-[8%] bottom-[-10px] text-sm"
+                style={{ animationDelay: "1.3s" }}
+              >
+                ✨
+              </span>
+            </span>
           </p>
           <span className="mt-8 block text-base uppercase tracking-[0.2em] text-white/60 group-hover:text-white">
             Tap to open
@@ -110,15 +151,6 @@ function Envelope({ stage, onOpen }: { stage: Stage; onOpen: () => void }) {
             style={{ clipPath: "polygon(0 0, 50% 100%, 100% 0)" }}
           />
         </div>
-
-        {/* Wax seal, sitting where the flap tip meets the envelope body */}
-        <img
-          src="/assets/sello-no-bg.png"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-15 h-30 w-30 -translate-x-1/2 transition-transform duration-500 group-hover:scale-[1.02]"
-          style={{ opacity: isOpening ? 0 : 1 }}
-        />
       </button>
     </div>
   );
@@ -149,12 +181,44 @@ function BackPanel({
           className="mx-auto h-24 w-24 cursor-pointer rounded-full border-4 border-[#F6E27A]/60 object-cover shadow-lg transition-transform hover:scale-105"
         />
       </button>
-      <p className={`${headlineFont.className} mt-6 text-4xl text-[#F6E27A]`}>
+      <p className={`${monimerSerif.className} mt-6 text-3xl text-white/80`}>
         We&apos;ll miss you
       </p>
-      <p className="mt-2 text-lg text-white/80">{recipientName}</p>
+      <p className={`${headlineFont.className} mt-8 text-4xl  text-[#F6E27A] `}>
+        {recipientName}
+      </p>
 
       <NameScatter messages={messages} />
     </div>
+  );
+}
+
+function WaxSeal({ stage }: { stage: Stage }) {
+  const isClosed = stage === "closed";
+
+  return (
+    <img
+      src="/assets/sello-no-bg.png"
+      alt=""
+      aria-hidden="true"
+      className="pointer-events-none fixed z-30 transition-all duration-700 ease-in-out "
+      style={
+        isClosed
+          ? {
+              top: "calc(50% - 72px)",
+              left: "50%",
+              width: "130px",
+              height: "130px",
+              transform: "translate(-50%, -50%)",
+            }
+          : {
+              top: "24px",
+              left: "24px",
+              width: "130px",
+              height: "130px",
+              transform: "translate(0, 0)",
+            }
+      }
+    />
   );
 }

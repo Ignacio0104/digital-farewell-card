@@ -14,12 +14,12 @@ export default function ViewMessageModal({
 }: ViewMessageModalProps) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 animate-[fadeIn_0.2s_ease-out]"
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[#F6E27A]/30 bg-[#1B1440] p-6 shadow-2xl"
+        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[#F6E27A]/30 bg-[#1B1440] p-6 shadow-2xl animate-[modalPop_0.25s_ease-out]"
       >
         <div className="flex items-start justify-between gap-4">
           <h2 style={styleForName(message.id)} className="text-3xl">
@@ -28,7 +28,7 @@ export default function ViewMessageModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-white/60 hover:text-white"
+            className="text-white/60 hover:text-white cursor-pointer"
           >
             ✕
           </button>
