@@ -8,21 +8,32 @@ import {
   Cinzel_Decorative,
 } from "next/font/google";
 
+import localFont from "next/font/local";
+
 const caveat = Caveat({ subsets: ["latin"] });
 const dancingScript = Dancing_Script({ subsets: ["latin"] });
-const pacifico = Pacifico({ subsets: ["latin"], weight: "400" });
-const kalam = Kalam({ subsets: ["latin"], weight: ["400", "700"] });
-const shadowsIntoLight = Shadows_Into_Light({
+export const pacifico = Pacifico({ subsets: ["latin"], weight: "400" });
+export const kalam = Kalam({ subsets: ["latin"], weight: ["400", "700"] });
+export const shadowsIntoLight = Shadows_Into_Light({
   subsets: ["latin"],
   weight: "400",
 });
 const satisfy = Satisfy({ subsets: ["latin"], weight: "400" });
 
-export const headlineFont = Cinzel_Decorative({
+export const headlineFont = localFont({
+  src: "../../../../public/assets/fonts/waltograph/waltographUI.ttf",
+  weight: "700", // match whatever weight your specific .ttf file actually is
+});
+
+export const monimerSerif = localFont({
+  src: "../../../../public/assets/fonts/monimer_serif/MonimerSerif.otf",
+  weight: "700", // match whatever weight your specific .ttf file actually is
+});
+
+export const cinzel = Cinzel_Decorative({
   subsets: ["latin"],
   weight: ["700", "900"],
 });
-
 const HANDWRITTEN_FONTS = [
   caveat,
   dancingScript,
@@ -32,14 +43,13 @@ const HANDWRITTEN_FONTS = [
   satisfy,
 ];
 
-// Firework/pixie-dust palette, chosen to read clearly against a night-sky background.
 const INK_COLORS = [
-  "#F6E27A", // pixie gold
-  "#8FD9E8", // fairy teal
-  "#F2A6C7", // enchanted pink
-  "#C6A8F0", // magic lavender
-  "#9BE38A", // wishing-well green
-  "#F4B860", // firework orange
+  "#e46ac5", // antique gold
+  "#2F6F62", // deep emerald
+  "#7A2E4A", // wine burgundy
+  "#3C5B8C", // sapphire blue
+  "#6B4C8A", // deep amethyst
+  "#B5652B", // burnished copper
 ];
 
 function hashString(value: string): number {

@@ -62,3 +62,76 @@ body {
     page-break-inside: avoid;
   }
 }
+
+@keyframes magicGlow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 8px rgba(246, 226, 122, 0.6),
+      0 0 16px rgba(246, 226, 122, 0.4),
+      0 0 24px rgba(246, 226, 122, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 16px rgba(246, 226, 122, 0.9),
+      0 0 32px rgba(246, 226, 122, 0.6),
+      0 0 48px rgba(246, 226, 122, 0.35);
+  }
+}
+
+@keyframes sparkleTwinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+.magic-glow-text {
+  animation: magicGlow 2.4s ease-in-out infinite;
+}
+
+.magic-sparkle {
+  position: absolute;
+  color: #f6e27a;
+  animation: sparkleTwinkle 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .print-page {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-message {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
