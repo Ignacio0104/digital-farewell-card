@@ -24,7 +24,8 @@ const PAPER_BG_STYLE: CSSProperties = {
     radial-gradient(circle at 90% 80%, rgba(139, 111, 62, 0.1) 0%, transparent 35%),
     url('/assets/paper-background.jpg')
   `,
-  backgroundSize: "cover, cover, cover, cover, cover",
+  backgroundSize: "cover, cover, cover, cover, 500px",
+  backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, repeat",
   backgroundPosition: "center",
 };
 
