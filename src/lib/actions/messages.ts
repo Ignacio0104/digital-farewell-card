@@ -23,8 +23,6 @@ export async function verifyPasscode(
   const card = await prisma.card.findUnique({ where: { id: cardId } });
 
   if (!card) return { ok: false, error: "Card not found." };
-  if (card.isClosed)
-    return { ok: false, error: "Submissions are closed for this card." };
   console.log(card);
   if (card.passcode !== passcode.trim())
     return { ok: false, error: "Incorrect passcode." };
@@ -46,16 +44,10 @@ export async function submitMessage(
     passcode: string;
   },
 ): Promise<SubmitMessageState> {
-  // Re-verify server-side rather than trusting the client's unlocked state.
   const card = await prisma.card.findUnique({ where: { id: cardId } });
-  console.log(data);
   if (!card) return { error: "Card not found.", success: false };
-  if (card.isClosed)
-    return { error: "Submissions are closed for this card.", success: false };
-  if (card.passcode !== data.passcode.trim()) {
-    console.log("Hereee");
+  if (card.passcode !== data.passcode.trim())
     return { error: "Incorrect passcode.", success: false };
-  }
 
   const authorName = data.authorName.trim();
   const messageText = data.messageText.trim();
@@ -78,5 +70,9 @@ export async function submitMessage(
   }
 
   revalidatePath(`/admin/cards/${cardId}`);
+  if (card.viewSlug) {
+    revalidatePath(`/card/${card.viewSlug}/view`);
+  }
+
   return { error: null, success: true };
 }
