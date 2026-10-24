@@ -8,14 +8,16 @@ import { useEffect, useState } from "react";
 
 interface PhotoUploadProps {
   maxFiles?: number;
+  initialUrls?: string[];
   onChange: (urls: string[]) => void;
 }
 
 export default function PhotoUpload({
   maxFiles = 3,
+  initialUrls = [],
   onChange,
 }: PhotoUploadProps) {
-  const [urls, setUrls] = useState<string[]>([]);
+  const [urls, setUrls] = useState<string[]>(initialUrls);
 
   useEffect(() => {
     onChange(urls);
