@@ -26,5 +26,8 @@ model Message {
   authorName  String
   messageText String
   images      String[]
+  ownerEmail  String?
   createdAt   DateTime @default(now())
+
+  @@unique([cardId, ownerEmail])
 }

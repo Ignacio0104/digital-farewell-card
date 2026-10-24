@@ -3,6 +3,7 @@
 import { createCard, CreateCardState } from "@/lib/cards";
 import { useState, useTransition } from "react";
 import PhotoUpload from "../PhotoUpload";
+import { requireAdmin } from "@/lib/admin";
 
 const initialState: CreateCardState = { error: null, success: false };
 
@@ -28,6 +29,7 @@ export default function NewCardModal({ onClose }: NewCardModalProps) {
   function handleSubmit(formData: FormData) {
     setError(null);
     startTransition(async () => {
+      await requireAdmin();
       const result = await createCard(initialState, formData);
       if (result.success) {
         onClose();
