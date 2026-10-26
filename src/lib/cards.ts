@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { randomBytes } from "crypto";
+import { requireAdmin } from "@/lib/admin";
 
 export interface CreateCardState {
   error: string | null;
@@ -14,6 +15,7 @@ export async function createCard(
   _prevState: CreateCardState,
   formData: FormData,
 ): Promise<CreateCardState> {
+  await requireAdmin();
   const recipientName = formData.get("recipientName")?.toString().trim();
   const recipientPhoto = formData.get("recipientPhoto")?.toString().trim();
   const passcode = formData.get("passcode")?.toString().trim();
@@ -51,6 +53,8 @@ export async function updateCard(
   cardId: string,
   data: { recipientName: string; recipientPhoto: string },
 ): Promise<void> {
+  await requireAdmin();
+
   await prisma.card.update({
     where: { id: cardId },
     data: {
@@ -64,6 +68,8 @@ export async function updateCard(
 }
 
 export async function deleteCard(cardId: string): Promise<void> {
+  await requireAdmin();
+
   await prisma.card.delete({ where: { id: cardId } });
   revalidatePath("/admin");
   redirect("/admin");
@@ -85,6 +91,8 @@ function generateViewSlug(recipientName: string): string {
 }
 
 export async function closeCard(cardId: string): Promise<{ viewSlug: string }> {
+  await requireAdmin();
+
   const card = await prisma.card.findUnique({ where: { id: cardId } });
   if (!card) throw new Error("Card not found.");
 

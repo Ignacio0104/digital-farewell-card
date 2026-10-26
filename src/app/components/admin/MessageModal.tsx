@@ -3,7 +3,6 @@
 import { useTransition } from "react";
 import { deleteMessage } from "@/lib/actions/messages";
 import { AdminMessageRow } from "./MessagesList";
-import { requireAdmin } from "@/lib/admin";
 
 interface MessageModalProps {
   cardId: string;
@@ -25,7 +24,6 @@ export default function MessageModal({
     if (!confirmed) return;
 
     startTransition(async () => {
-      await requireAdmin();
       await deleteMessage(message.id, cardId);
       onClose();
     });

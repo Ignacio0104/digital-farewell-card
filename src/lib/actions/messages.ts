@@ -2,11 +2,14 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { requireAdmin } from "../admin";
 
 export async function deleteMessage(
   messageId: string,
   cardId: string,
 ): Promise<void> {
+  await requireAdmin();
+
   await prisma.message.delete({ where: { id: messageId } });
   revalidatePath(`/admin/cards/${cardId}`);
 }

@@ -3,7 +3,6 @@
 import { closeCard, deleteCard, updateCard } from "@/lib/cards";
 import { useState, useTransition } from "react";
 import PhotoUpload from "../PhotoUpload";
-import { requireAdmin } from "@/lib/admin";
 
 interface EditCardFormProps {
   card: {
@@ -32,7 +31,6 @@ export default function EditCardForm({ card }: EditCardFormProps) {
   function handleSave() {
     setError(null);
     startSaveTransition(async () => {
-      await requireAdmin();
       try {
         await updateCard(card.id, { recipientName, recipientPhoto: photoUrl });
         setSaved(true);
@@ -50,7 +48,6 @@ export default function EditCardForm({ card }: EditCardFormProps) {
     if (!confirmed) return;
 
     startDeleteTransition(async () => {
-      await requireAdmin();
       try {
         await deleteCard(card.id);
       } catch (err) {
@@ -67,7 +64,6 @@ export default function EditCardForm({ card }: EditCardFormProps) {
 
     setCloseError(null);
     startCloseTransition(async () => {
-      await requireAdmin();
       try {
         const result = await closeCard(card.id);
         setIsClosed(true);
